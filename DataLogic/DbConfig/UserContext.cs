@@ -11,13 +11,13 @@ using System.Threading.Tasks;
 namespace Data.DataAccess
 {
 
-    public class PersonContext : DbContext
+    public class UserContext : DbContext
     {
-        public DbSet<Person> People { get; set; }
+        public DbSet<User> Users { get; set; }
         public DbSet<Email> EmailAddresses { get; set; }
         public DbSet<Phone> PhoneNumbers { get; set; }
         public DbSet<JobPosition> JobPositions { get; set; }
-        public PersonContext(DbContextOptions<PersonContext> options) : base(options)
+        public UserContext(DbContextOptions<UserContext> options) : base(options)
         {
 
         }

@@ -8,15 +8,15 @@ namespace UsersNotebook.Api.Controllers
     [Route("users")]
     public class UsersController : ControllerBase
     {
-        private readonly IPersonRepository _personRepository;
+        private readonly IUserRepository _personRepository;
 
-        public UsersController(IPersonRepository personRepository)
+        public UsersController(IUserRepository personRepository)
         {
             _personRepository = personRepository;
         }
 
         [HttpGet("all")]
-        public async Task<ActionResult<IEnumerable<Person>>> Get()
+        public async Task<ActionResult<IEnumerable<User>>> Get()
         {
             var people = await _personRepository.GetAll();
             return Ok(people);
@@ -25,7 +25,7 @@ namespace UsersNotebook.Api.Controllers
         [HttpPost("testpost")]
         public async void Dupa()
         {
-            var osoba = new Person
+            var osoba = new User
             {
                 FirstName = "John",
                 LastName = "Doe",

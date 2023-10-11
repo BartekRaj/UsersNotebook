@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace DataLogic.Migrations
 {
-    [DbContext(typeof(PersonContext))]
+    [DbContext(typeof(UserContext))]
     partial class PersonContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)
@@ -27,12 +27,12 @@ namespace DataLogic.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<int?>("PersonId")
+                    b.Property<int?>("UserId")
                         .HasColumnType("INTEGER");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("PersonId");
+                    b.HasIndex("UserId");
 
                     b.ToTable("EmailAddresses");
                 });
@@ -58,7 +58,27 @@ namespace DataLogic.Migrations
                     b.ToTable("JobPositions");
                 });
 
-            modelBuilder.Entity("Data.Models.Person", b =>
+            modelBuilder.Entity("Data.Models.Phone", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("PhoneNumber")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<int?>("UserId")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("PhoneNumbers");
+                });
+
+            modelBuilder.Entity("Data.Models.User", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -90,37 +110,24 @@ namespace DataLogic.Migrations
 
                     b.HasIndex("PositionId");
 
-                    b.ToTable("People");
-                });
-
-            modelBuilder.Entity("Data.Models.Phone", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int?>("PersonId")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("PhoneNumber")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("PersonId");
-
-                    b.ToTable("PhoneNumbers");
+                    b.ToTable("Users");
                 });
 
             modelBuilder.Entity("Data.Models.Email", b =>
                 {
-                    b.HasOne("Data.Models.Person", null)
+                    b.HasOne("Data.Models.User", null)
                         .WithMany("EmailAddresses")
-                        .HasForeignKey("PersonId");
+                        .HasForeignKey("UserId");
                 });
 
-            modelBuilder.Entity("Data.Models.Person", b =>
+            modelBuilder.Entity("Data.Models.Phone", b =>
+                {
+                    b.HasOne("Data.Models.User", null)
+                        .WithMany("PhoneNumbers")
+                        .HasForeignKey("UserId");
+                });
+
+            modelBuilder.Entity("Data.Models.User", b =>
                 {
                     b.HasOne("Data.Models.JobPosition", "Position")
                         .WithMany()
@@ -129,14 +136,7 @@ namespace DataLogic.Migrations
                     b.Navigation("Position");
                 });
 
-            modelBuilder.Entity("Data.Models.Phone", b =>
-                {
-                    b.HasOne("Data.Models.Person", null)
-                        .WithMany("PhoneNumbers")
-                        .HasForeignKey("PersonId");
-                });
-
-            modelBuilder.Entity("Data.Models.Person", b =>
+            modelBuilder.Entity("Data.Models.User", b =>
                 {
                     b.Navigation("EmailAddresses");
 
