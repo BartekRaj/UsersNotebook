@@ -1,10 +1,7 @@
-﻿namespace Data.Models
+﻿namespace Data.Models;
+
+public enum Gender
 {
-    public enum Gender
-    {
-        Male,
-        Female
-    }
-
-
+    Male,
+    Female
 }
