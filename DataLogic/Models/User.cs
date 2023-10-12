@@ -19,7 +19,7 @@ public class User
     public bool IsMarried { get; set; }
     [Required]
     [DataType(DataType.Date)]
-    public DateOnly DateOfBirth { get; set; }
+    public DateTime DateOfBirth { get; set; }
     [MaxLength(200)]
     public string? Position { get; set; }
     [EmailAddress]

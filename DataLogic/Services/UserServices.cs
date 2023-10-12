@@ -20,7 +20,6 @@ public class UserServices : IUserServices
     {
 
 
-            // Fetch user data from the repository, you'll need to implement this method
             var users = await _userRepository.GetAllAsync();
 
             var csv = new StringBuilder();
@@ -31,7 +30,6 @@ public class UserServices : IUserServices
                 csv.AppendLine($"{GetUserTitle(user)},{user.FirstName},{user.LastName},{user.DateOfBirth},{user.Gender},{GetUserAge(user)}");
             }
 
-            // Get the CSV content as bytes
             return Encoding.UTF8.GetBytes(csv.ToString());
 
 
@@ -44,11 +42,10 @@ public class UserServices : IUserServices
             throw new ArgumentNullException(nameof(user));
         }
 
-        DateTime currentDate = DateTime.Now;
-        DateTime birthDate = new DateTime(user.DateOfBirth.Year, user.DateOfBirth.Month, user.DateOfBirth.Day);
+        var currentDate = DateTime.Now;
+        var birthDate = new DateTime(user.DateOfBirth.Year, user.DateOfBirth.Month, user.DateOfBirth.Day);
         int age = currentDate.Year - birthDate.Year;
 
-        // Reduce age by 1 if there was no birthday yet this year
         if (currentDate < birthDate.AddYears(age))
         {
             age--;

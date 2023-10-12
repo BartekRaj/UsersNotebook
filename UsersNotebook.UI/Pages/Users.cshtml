@@ -51,10 +51,10 @@
             {
                 <tr>
                 <td class="FirstName">
-                    <a asp-page="EditUser" asp-route-id="@user.Id">@user.FirstName</a>
+                    <a asp-page="AddEditUser" asp-route-id="@user.Id">@user.FirstName</a>
                 </td>
                 <td class="LastName">
-                    <a asp-page="EditUser" asp-route-id="@user.Id">@user.LastName</a>
+                    <a asp-page="AddEditUser" asp-route-id="@user.Id">@user.LastName</a>
                 </td>
                 <td>@Model.GetGender(user.Gender)</td>
                 <td>@user.DateOfBirth.ToString("dd-MM-yyyy")</td>
@@ -66,5 +66,5 @@
 
     </tbody>
 </table>
-<a asp-page="AddUser">Add User</a>
+<a asp-page="AddEditUser" asp-route-id=0>Add User</a>
 

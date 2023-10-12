@@ -54,13 +54,12 @@ public class UsersController : ControllerBase
         await _userRepository.DeleteUserAsync(id);
     }
     [HttpGet("csv/download")]
-    public async Task<ActionResult> DownloadCsv()
+    public async Task<ActionResult> DownloadCsvAsync()
     {
         try
         {
-            byte[] csvData = await _userServices.ExportUsersToCSVAsync();
+            var csvData = await _userServices.ExportUsersToCSVAsync();
             string fileName = $"{DateTime.Now:yyyyMMddHHmmss}.csv";
-            // Return the CSV file as a downloadable response
 
             if (csvData != null)
             {

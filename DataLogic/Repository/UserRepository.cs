@@ -31,6 +31,7 @@ public class UserRepository : IUserRepository
             currentUser.EmailAddress = user.EmailAddress;
             currentUser.IsMarried = user.IsMarried;
             currentUser.DateOfBirth = user.DateOfBirth;
+            currentUser.Position = user.Position;
             currentUser.Gender = user.Gender;
             await _userContext.SaveChangesAsync();
         }
