@@ -1,54 +1,78 @@
-using Data.Models;
+using DataLogic.Models;
 using DataLogic.Repository;
+using DataLogic.Services;
 using Microsoft.AspNetCore.Mvc;
 
-namespace UsersNotebook.Api.Controllers
+namespace UsersNotebook.Api.Controllers;
+
+[ApiController]
+[Route("users")]
+public class UsersController : ControllerBase
 {
-    [ApiController]
-    [Route("users")]
-    public class UsersController : ControllerBase
+    private readonly IUserRepository _userRepository;
+    private readonly IUserServices _userServices;
+
+    public UsersController(IUserRepository userRepository, IUserServices userServices)
     {
-        private readonly IUserRepository _personRepository;
+        _userRepository = userRepository;
+        _userServices = userServices;
+    }
 
-        public UsersController(IUserRepository personRepository)
+    [HttpGet("all")]
+    public async Task<ActionResult<IEnumerable<User>>> Get()
+    {
+        var users = await _userRepository.GetAllAsync();
+        return Ok(users);
+    }
+    [HttpGet("{id}")]
+    public async Task<ActionResult<User>> GetById(int id)
+    {
+        var user = await _userRepository.GetByIdAsync(id);
+        if (user != null)
         {
-            _personRepository = personRepository;
+            return Ok(user);
+
         }
+        return NotFound();
+    }
 
-        [HttpGet("all")]
-        public async Task<ActionResult<IEnumerable<User>>> Get()
-        {
-            var people = await _personRepository.GetAll();
-            return Ok(people);
-        }
+    [HttpPost("add")]
+    public async Task AddUser([FromBody] User user)
+    {
+        await _userRepository.SaveUserAsync(user);
+    }
 
-        [HttpPost("testpost")]
-        public async void Dupa()
+    [HttpPost("update")]
+    public async Task UpdateUser([FromBody] User user)
+    {
+        await _userRepository.UpdateUserAsync(user);
+    }
+
+    [HttpDelete("delete/{id}")]
+    public async Task DeleteUser(int id)
+    {
+        await _userRepository.DeleteUserAsync(id);
+    }
+    [HttpGet("csv/download")]
+    public async Task<ActionResult> DownloadCsv()
+    {
+        try
         {
-            var osoba = new User
+            byte[] csvData = await _userServices.ExportUsersToCSVAsync();
+            string fileName = $"{DateTime.Now:yyyyMMddHHmmss}.csv";
+            // Return the CSV file as a downloadable response
+
+            if (csvData != null)
             {
-                FirstName = "John",
-                LastName = "Doe",
-                Gender = Gender.Male,
-                IsMarried = true,
-                DateOfBirth = new DateOnly(1995,10,26),
-                Position = new JobPosition
-                {
-                    PositionName = "Software Engineer",
-                    Description = "Senior Software Engineer"
-                },
-                EmailAddresses = new List<Email>
-            {
-                new Email { EmailAddress = "john.doe@example.com" }
-            },
-                PhoneNumbers = new List<Phone>
-            {
-                new Phone { PhoneNumber = "+1234567890" }
+                return Ok(File(csvData, "text/csv", fileName)); 
             }
-            };
-
-          await  _personRepository.SaveUser(osoba);
-
+            return BadRequest();
+        }
+        catch (Exception ex)
+        {
+            return StatusCode(500, ex.Message);
         }
     }
+
+
 }

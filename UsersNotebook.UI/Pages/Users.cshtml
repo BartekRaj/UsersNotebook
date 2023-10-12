@@ -1,0 +1,70 @@
+﻿@page
+@using UsersNotebook.UI.Models;
+@model UsersModel
+
+<h1>Users</h1>
+<style>
+    table {
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    th, td {
+        border: 1px solid #ddd;
+        padding: 8px;
+        text-align: left;
+    }
+
+    tr:nth-child(even) {
+        background-color: #f2f2f2;
+    }
+
+    td.FirstName a, td.LastName a {
+        text-decoration: none; /* Remove underlines */
+        color: inherit; /* Inherit the color from the parent cell */
+        cursor: default; /* Use the default cursor */
+
+        transition: color 0.2s; /* Smooth color transition */
+
+    }
+
+        td.FirstName a:hover, td.LastName a:hover {
+            color: blue; /* Change to the color you prefer on hover */
+        }
+
+</style>
+<table>
+    <thead>
+        <tr>
+            <th>FirstName</th>
+            <th>LastName</th>
+            <th>Gender</th>
+            <th>Date of birth</th>
+            <th>Job Postion</th>
+            <th>Email Address</th>
+            <th>Phone Number</th>
+        </tr>
+    </thead>
+    <tbody>
+
+            @foreach (var user in Model._users)
+            {
+                <tr>
+                <td class="FirstName">
+                    <a asp-page="EditUser" asp-route-id="@user.Id">@user.FirstName</a>
+                </td>
+                <td class="LastName">
+                    <a asp-page="EditUser" asp-route-id="@user.Id">@user.LastName</a>
+                </td>
+                <td>@Model.GetGender(user.Gender)</td>
+                <td>@user.DateOfBirth</td>
+                <td>@user.Position</td>
+                <td>@user.EmailAddress</td>
+                <td>@user.PhoneNumber</td>
+                </tr>
+            }
+
+    </tbody>
+</table>
+<a asp-page="AddUser">Add User</a>
+

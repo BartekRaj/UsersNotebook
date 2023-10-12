@@ -3,9 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.7.34031.279
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataLogic", "DataLogic\DataLogic.csproj", "{CE7310A6-868F-4059-8717-DA6D1350512F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataLogic", "DataLogic\DataLogic.csproj", "{CE7310A6-868F-4059-8717-DA6D1350512F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UsersNotebook.Api", "UsersNotebook.Api\UsersNotebook.Api.csproj", "{DBA0C7AE-8234-4376-A6A6-5F4F722601ED}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UsersNotebook.Api", "UsersNotebook.Api\UsersNotebook.Api.csproj", "{DBA0C7AE-8234-4376-A6A6-5F4F722601ED}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UsersNotebook.UI", "UsersNotebook.UI\UsersNotebook.UI.csproj", "{A98CB39D-42EA-4A89-9944-AEE7B96A7491}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{DBA0C7AE-8234-4376-A6A6-5F4F722601ED}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DBA0C7AE-8234-4376-A6A6-5F4F722601ED}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DBA0C7AE-8234-4376-A6A6-5F4F722601ED}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A98CB39D-42EA-4A89-9944-AEE7B96A7491}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A98CB39D-42EA-4A89-9944-AEE7B96A7491}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A98CB39D-42EA-4A89-9944-AEE7B96A7491}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A98CB39D-42EA-4A89-9944-AEE7B96A7491}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

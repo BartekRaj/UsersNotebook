@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Data.Models;
+namespace DataLogic.Models;
 
 public class User
 {
@@ -20,7 +20,10 @@ public class User
     [Required]
     [DataType(DataType.Date)]
     public DateOnly DateOfBirth { get; set; }
-    public JobPosition? Position { get; set; }
-    public List<Email> EmailAddresses { get; set; } = new List<Email>();
-    public List<Phone> PhoneNumbers { get; set; } = new List<Phone>();
+    [MaxLength(200)]
+    public string? Position { get; set; }
+    [EmailAddress]
+    public string? EmailAddress { get; set; }
+    [Phone]
+    public string? PhoneNumber { get; set; }
 }

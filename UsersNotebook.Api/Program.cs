@@ -1,5 +1,6 @@
-using Data.DataAccess;
+using DataLogic.DataAccess;
 using DataLogic.Repository;
+using DataLogic.Services;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -15,7 +16,7 @@ builder.Services.AddDbContext<UserContext>(options =>
     options.UseSqlite(builder.Configuration.GetConnectionString("Default"));
 });
 builder.Services.AddScoped<IUserRepository,UserRepository>();
-
+builder.Services.AddScoped<IUserServices, UserServices>();
 
 var app = builder.Build();
 
