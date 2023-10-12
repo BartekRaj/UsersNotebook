@@ -1,8 +1,9 @@
 ﻿@page
 @using UsersNotebook.UI.Models;
 @model UsersModel
-
-<h1>Users</h1>
+@{
+    ViewData["Title"] = "All Users";
+}
 <style>
     table {
         border-collapse: collapse;
@@ -25,7 +26,6 @@
         cursor: default; /* Use the default cursor */
 
         transition: color 0.2s; /* Smooth color transition */
-
     }
 
         td.FirstName a:hover, td.LastName a:hover {
@@ -57,7 +57,7 @@
                     <a asp-page="EditUser" asp-route-id="@user.Id">@user.LastName</a>
                 </td>
                 <td>@Model.GetGender(user.Gender)</td>
-                <td>@user.DateOfBirth</td>
+                <td>@user.DateOfBirth.ToString("dd-MM-yyyy")</td>
                 <td>@user.Position</td>
                 <td>@user.EmailAddress</td>
                 <td>@user.PhoneNumber</td>

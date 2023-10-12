@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataLogic", "DataLogic\Data
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UsersNotebook.Api", "UsersNotebook.Api\UsersNotebook.Api.csproj", "{DBA0C7AE-8234-4376-A6A6-5F4F722601ED}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UsersNotebook.UI", "UsersNotebook.UI\UsersNotebook.UI.csproj", "{A98CB39D-42EA-4A89-9944-AEE7B96A7491}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UsersNotebook.UI", "UsersNotebook.UI\UsersNotebook.UI.csproj", "{A98CB39D-42EA-4A89-9944-AEE7B96A7491}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

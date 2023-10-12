@@ -18,8 +18,8 @@ public class UsersModel : PageModel
 
     public async Task OnGetAsync()
     {
-        var httpClient = _httpClientFactory.CreateClient();
-        var response = await httpClient.GetAsync("https://localhost:7261/users/all");
+        var httpClient = _httpClientFactory.CreateClient("UsersAPI");
+        var response = await httpClient.GetAsync("all");
         if (response.IsSuccessStatusCode)
         {
              _users = await response.Content.ReadFromJsonAsync<List<UserView>>();

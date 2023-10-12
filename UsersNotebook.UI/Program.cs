@@ -1,10 +1,14 @@
+using Microsoft.AspNetCore.Builder;
 using UsersNotebook.UI.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorPages();
-builder.Services.AddHttpClient();
+builder.Services.AddHttpClient("UsersAPI", client =>
+{
+    client.BaseAddress = new Uri("https://localhost:7261/users/");
+});
 builder.Services.AddSingleton <List<UserView>>();
 
 var app = builder.Build();
@@ -24,6 +28,12 @@ app.UseRouting();
 
 app.UseAuthorization();
 
-app.MapRazorPages();
+
+app.UseEndpoints(endpoints =>
+{
+    endpoints.MapRazorPages();
+    endpoints.MapFallbackToPage("/Users");
+});
+
 
 app.Run();
