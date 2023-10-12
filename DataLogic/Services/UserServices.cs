@@ -27,7 +27,7 @@ public class UserServices : IUserServices
 
             foreach (var user in users)
             {
-                csv.AppendLine($"{GetUserTitle(user)},{user.FirstName},{user.LastName},{user.DateOfBirth},{user.Gender},{GetUserAge(user)}");
+                csv.AppendLine($"{GetUserTitle(user)},{user.FirstName},{user.LastName},{user.DateOfBirth.ToString("dd-MM-yyyy")},{user.Gender},{GetUserAge(user)}");
             }
 
             return Encoding.UTF8.GetBytes(csv.ToString());

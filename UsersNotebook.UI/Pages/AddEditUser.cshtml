@@ -3,68 +3,71 @@
 <h1>Edit User</h1>
 
 <div>
-    <form method="post">
-        <div>
-            <label for="FirstName" class="label-field">First Name:</label>
-        </div>
-            <input asp-for="User.FirstName" class="input-field" />
+    @if (Model.ViewUser != null)
+    {
+        <form method="post">
+            <div>
+                <label for="FirstName" class="label-field">First Name:</label>
+            </div>
+            <input asp-for="ViewUser!.FirstName" class="input-field" />
 
 
-        <div>
-            <label for="LastName" class="label-field">Last Name:</label>
-        </div>
-            <input asp-for="User.LastName" class="input-field" />
+            <div>
+                <label for="LastName" class="label-field">Last Name:</label>
+            </div>
+            <input asp-for="ViewUser!.LastName" class="input-field" />
 
 
-        <div>
-            <label for="Gender" class="label-field">Gender:</label>
-        </div>
-            <select asp-for="User.Gender" class="input-field">
+            <div>
+                <label for="Gender" class="label-field">Gender:</label>
+            </div>
+            <select asp-for="ViewUser!.Gender" class="input-field">
                 <option value="0">Male</option>
                 <option value="1">Female</option>
             </select>
 
 
-        <div>
-            <label for="IsMarried" class="label-field">Married:</label>
-            <input type="checkbox" asp-for="User.IsMarried"/>
-        </div>
+            <div>
+                <label for="IsMarried" class="label-field">Married:</label>
+                <input type="checkbox" asp-for="ViewUser!.IsMarried" />
+            </div>
 
 
-        <div>
-            <label for="DateOfBirth" class="label-field">Date of Birth:</label>
-        </div>
-            <input type="date" asp-for="User.DateOfBirth" class="input-field" />
+            <div>
+                <label for="DateOfBirth" class="label-field">Date of Birth:</label>
+            </div>
+            <input type="date" asp-for="ViewUser!.DateOfBirth" class="input-field" />
 
 
-        <div >
-            <label for="Position" class="label-field">Job Position:</label>
-        </div>
-            <input asp-for="User.Position" class="input-field" />
+            <div>
+                <label for="Position" class="label-field">Job Position:</label>
+            </div>
+            <input asp-for="ViewUser!.Position" class="input-field" />
 
-        <div>
-            <label for="EmailAddress" class="label-field">Email Address:</label>
-        </div>
-            <input type="email" asp-for="User.EmailAddress" class="input-field" />
-
-
-        <div>
-            <label for="PhoneNumber"class="label-field">Phone Number:</label>
-        </div>
-            <input type="tel" asp-for="User.PhoneNumber" class="input-field" />
+            <div>
+                <label for="EmailAddress" class="label-field">Email Address:</label>
+            </div>
+            <input type="email" asp-for="ViewUser!.EmailAddress" class="input-field" />
 
 
-        <input type="hidden" asp-for="User.Id" />
-        <input type="hidden" asp-for="User.DateOfBirth" />
-        @if (Model.User.Id == 0)
-        {
-            <button type="submit" class="input-field">Add User</button>
-        }
-        else
-        {
-            <button type="submit" class="input-field">Update User</button>
-        }
-    </form>
+            <div>
+                <label for="PhoneNumber" class="label-field">Phone Number:</label>
+            </div>
+            <input type="tel" asp-for="ViewUser!.PhoneNumber" class="input-field" />
+
+
+            <input type="hidden" asp-for="ViewUser!.Id" />
+            <input type="hidden" asp-for="ViewUser!.DateOfBirth" />
+            @if (Model.ViewUser?.Id == 0)
+            {
+                <button type="submit" class="input-field">Add User</button>
+            }
+            else
+            {
+                <button type="submit" class="input-field">Update User</button>
+            }
+        </form>
+    }
 </div>
 <a asp-page="Users">Back to Users</a>
 

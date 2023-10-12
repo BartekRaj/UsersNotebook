@@ -1,13 +1,13 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using UsersNotebook.UI.Models;
-using System.Threading.Tasks;
 
+namespace UsersNotebook.UI.Pages;
 
 public class EditUserModel : PageModel
 {
     [BindProperty]
-    public UserView User { get; set; }
+    public UserView? ViewUser { get; set; }
 
     private readonly IHttpClientFactory _httpClientFactory;
 
@@ -25,12 +25,12 @@ public class EditUserModel : PageModel
             var response = await httpClient.GetAsync($"{id}");
             if (response.IsSuccessStatusCode)
             {
-                User = await response.Content.ReadFromJsonAsync<UserView>();
-            } 
+                ViewUser = await response.Content.ReadFromJsonAsync<UserView>();
+            }
         }
         else
         {
-            User = new UserView();
+            ViewUser = new UserView();
         }
     }
     public async Task<IActionResult> OnPostAsync()
@@ -38,13 +38,13 @@ public class EditUserModel : PageModel
         var httpClient = _httpClientFactory.CreateClient("UsersAPI");
         HttpResponseMessage response;
 
-        if (User.Id != 0)
+        if (ViewUser?.Id != 0)
         {
-            response = await httpClient.PostAsJsonAsync("update", User); 
+            response = await httpClient.PostAsJsonAsync("update", ViewUser);
         }
         else
         {
-            response = await httpClient.PostAsJsonAsync("add", User);
+            response = await httpClient.PostAsJsonAsync("add", ViewUser);
         }
 
         if (response.IsSuccessStatusCode)
@@ -53,7 +53,7 @@ public class EditUserModel : PageModel
         }
         else
         {
-            return Page(); 
+            return Page();
         }
     }
 }

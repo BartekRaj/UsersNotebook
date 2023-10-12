@@ -47,7 +47,7 @@
     </thead>
     <tbody>
 
-            @foreach (var user in Model._users)
+            @foreach (var user in Model.UsersList)
             {
                 <tr>
                 <td class="FirstName">
@@ -67,4 +67,9 @@
     </tbody>
 </table>
 <a asp-page="AddEditUser" asp-route-id=0>Add User</a>
+<a asp-page="Download" asp-route-id=0>Download</a>
 
+
+<form method="get" >
+    <button type="submit" asp-page-handler="DownloadCsv">Download CSV</button>
+</form>

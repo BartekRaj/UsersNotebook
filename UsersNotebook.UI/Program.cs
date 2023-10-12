@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Builder;
 using UsersNotebook.UI.Models;
+using UsersNotebook.UI.Pages;
 
 var builder = WebApplication.CreateBuilder(args);
 
