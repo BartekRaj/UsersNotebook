@@ -31,8 +31,10 @@ public class EditUserModel : PageModel
         }
         else
         {
-            ViewUser = new UserView();
-            ViewUser.DateOfBirth = DateTime.Today.AddYears(-40);
+            ViewUser = new UserView
+            {
+                DateOfBirth = DateTime.Today.AddYears(-40)
+            };
         }
     }
     public async Task<IActionResult> OnPost()

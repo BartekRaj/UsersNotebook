@@ -52,17 +52,17 @@ public class UsersModel : PageModel
 
         if (response.IsSuccessStatusCode)
         {
-            var responseData = await response.Content.ReadFromJsonAsync<DownloadResponseModel>(); // Deserialize the response into a custom class
+            var responseData = await response.Content.ReadFromJsonAsync<DownloadResponseModel>();
+            if (responseData == null)
+            {
+                return StatusCode(500, "Failed to download CSV data.");
+            }
 
-            // Decode the Base64 content
-            var base64Content = Convert.FromBase64String(responseData.FileContents);
-
-            // Set the content type and file name for the response
+            var base64Content = Convert.FromBase64String(responseData.FileContents!);
             var contentType = responseData.ContentType;
             var fileDownloadName = responseData.FileDownloadName;
 
-            // Return the file as a download
-            return File(base64Content, contentType, fileDownloadName);
+            return File(base64Content, contentType!, fileDownloadName);
         }
 
         return StatusCode(500, "Failed to download CSV data.");
