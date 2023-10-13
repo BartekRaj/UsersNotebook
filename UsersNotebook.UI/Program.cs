@@ -10,7 +10,7 @@ builder.Services.AddAntiforgery(opts =>
 });
 builder.Services.AddHttpClient("UsersAPI", client =>
 {
-    client.BaseAddress = new Uri("https://localhost:44380/users/");
+    client.BaseAddress = new Uri("https://localhost:7261/users/");
     client.DefaultRequestHeaders.Add("X-API-Key", builder.Configuration["AppSettings:ApiKey"]);
 });
 builder.Services.AddSingleton <List<UserView>>();
