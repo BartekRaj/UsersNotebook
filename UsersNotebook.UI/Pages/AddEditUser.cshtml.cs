@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using System.Net.Http.Json;
 using UsersNotebook.UI.Models;
 
 namespace UsersNotebook.UI.Pages;
@@ -31,21 +32,44 @@ public class EditUserModel : PageModel
         else
         {
             ViewUser = new UserView();
+            ViewUser.DateOfBirth = DateTime.Today.AddYears(-40);
         }
     }
-    public async Task<IActionResult> OnPostAsync()
+    public async Task<IActionResult> OnPost()
+    {
+        if (ModelState.IsValid)
+        {
+            var httpClient = _httpClientFactory.CreateClient("UsersAPI");
+            HttpResponseMessage response;
+
+            if (ViewUser?.Id != 0)
+            {
+                response = await httpClient.PostAsJsonAsync("update", ViewUser);
+            }
+            else
+            {
+                response = await httpClient.PostAsJsonAsync("add", ViewUser);
+            }
+
+            if (response.IsSuccessStatusCode)
+            {
+                return RedirectToPage("Users");
+            }
+            else
+            {
+                return Page();
+            } 
+        }
+        else return Page();
+    }
+
+    public async Task<IActionResult> OnPostDeleteUser()
     {
         var httpClient = _httpClientFactory.CreateClient("UsersAPI");
         HttpResponseMessage response;
 
-        if (ViewUser?.Id != 0)
-        {
-            response = await httpClient.PostAsJsonAsync("update", ViewUser);
-        }
-        else
-        {
-            response = await httpClient.PostAsJsonAsync("add", ViewUser);
-        }
+        response = await httpClient.DeleteAsync($"delete/{ViewUser.Id}");
+
 
         if (response.IsSuccessStatusCode)
         {

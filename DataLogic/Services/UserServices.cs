@@ -19,7 +19,6 @@ public class UserServices : IUserServices
     public async Task<byte[]?> ExportUsersToCSVAsync()
     {
 
-
             var users = await _userRepository.GetAllAsync();
 
             var csv = new StringBuilder();
@@ -32,7 +31,6 @@ public class UserServices : IUserServices
 
             return Encoding.UTF8.GetBytes(csv.ToString());
 
-
     }
 
     private static string GetUserAge(User user)
@@ -41,7 +39,6 @@ public class UserServices : IUserServices
         {
             throw new ArgumentNullException(nameof(user));
         }
-
         var currentDate = DateTime.Now;
         var birthDate = new DateTime(user.DateOfBirth.Year, user.DateOfBirth.Month, user.DateOfBirth.Day);
         int age = currentDate.Year - birthDate.Year;
@@ -72,7 +69,5 @@ public class UserServices : IUserServices
             }
         }
     }
-
-
 }
 

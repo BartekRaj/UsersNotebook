@@ -10,22 +10,27 @@
         width: 100%;
     }
 
-    th, td {
+     td, th {
         border: 1px solid #ddd;
         padding: 8px;
         text-align: left;
+        word-wrap: break-word;
+        max-width: 300px;
     }
+
 
     tr:nth-child(even) {
         background-color: #f2f2f2;
     }
+    tr{
+        height: auto;
+    }
 
     td.FirstName a, td.LastName a {
-        text-decoration: none; /* Remove underlines */
-        color: inherit; /* Inherit the color from the parent cell */
-        cursor: default; /* Use the default cursor */
-
-        transition: color 0.2s; /* Smooth color transition */
+        text-decoration: none; 
+        color: inherit; 
+        cursor: default; 
+        transition: color 0.2s; 
     }
 
         td.FirstName a:hover, td.LastName a:hover {
@@ -47,9 +52,9 @@
     </thead>
     <tbody>
 
-            @foreach (var user in Model.UsersList)
-            {
-                <tr>
+        @foreach (var user in Model.UsersList)
+        {
+            <tr>
                 <td class="FirstName">
                     <a asp-page="AddEditUser" asp-route-id="@user.Id">@user.FirstName</a>
                 </td>
@@ -61,15 +66,13 @@
                 <td>@user.Position</td>
                 <td>@user.EmailAddress</td>
                 <td>@user.PhoneNumber</td>
-                </tr>
-            }
+            </tr>
+        }
 
     </tbody>
 </table>
 <a asp-page="AddEditUser" asp-route-id=0>Add User</a>
-<a asp-page="Download" asp-route-id=0>Download</a>
 
-
-<form method="get" >
+<form method="post">
     <button type="submit" asp-page-handler="DownloadCsv">Download CSV</button>
 </form>

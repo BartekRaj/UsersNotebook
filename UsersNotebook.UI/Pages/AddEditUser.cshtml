@@ -1,60 +1,62 @@
 ﻿@page
 @model EditUserModel
-<h1>Edit User</h1>
+
+
+@if (Model.ViewUser?.Id == 0)
+{
+    <h1>Add User</h1>
+}
+else
+{
+    <h1>Edit User</h1>
+}
 
 <div>
     @if (Model.ViewUser != null)
     {
         <form method="post">
             <div>
-                <label for="FirstName" class="label-field">First Name:</label>
+                <label for="FirstName" class="label-field">First Name:<span class="required">*</span></label>
             </div>
-            <input asp-for="ViewUser!.FirstName" class="input-field" />
-
-
+            <input asp-for="ViewUser!.FirstName" class="input-field" required />
+            <span asp-validation-for="ViewUser!.FirstName" class="text-danger"></span>            
             <div>
-                <label for="LastName" class="label-field">Last Name:</label>
+                <label for="LastName" class="label-field">Last Name:<span class="required">*</span></label>
             </div>
-            <input asp-for="ViewUser!.LastName" class="input-field" />
-
-
+            <input asp-for="ViewUser!.LastName" class="input-field" required />
+            <span asp-validation-for="ViewUser!.LastName" class="text-danger"></span>
             <div>
-                <label for="Gender" class="label-field">Gender:</label>
+                <label for="Gender" class="label-field">Gender:<span class="required">*</span></label>
             </div>
-            <select asp-for="ViewUser!.Gender" class="input-field">
+            <select asp-for="ViewUser!.Gender" class="input-field" required>
                 <option value="0">Male</option>
                 <option value="1">Female</option>
             </select>
-
-
             <div>
-                <label for="IsMarried" class="label-field">Married:</label>
+                <label for="IsMarried" class="label-field">Married:<span class="required">*</span></label>
                 <input type="checkbox" asp-for="ViewUser!.IsMarried" />
             </div>
-
-
             <div>
-                <label for="DateOfBirth" class="label-field">Date of Birth:</label>
+                <label for="DateOfBirth" class="label-field">Date of Birth:<span class="required">*</span></label>
             </div>
-            <input type="date" asp-for="ViewUser!.DateOfBirth" class="input-field" />
-
-
+            <input type="date" asp-for="ViewUser!.DateOfBirth" class="input-field" required
+                   min="@DateTime.Now.AddYears(-130).ToString("yyyy-MM-dd")"
+                   max="@DateTime.Now.ToString("yyyy-MM-dd")" />
             <div>
                 <label for="Position" class="label-field">Job Position:</label>
             </div>
-            <input asp-for="ViewUser!.Position" class="input-field" />
-
+            <input asp-for="ViewUser!.Position" class="input-field"/>
+            <span asp-validation-for="ViewUser!.Position" class="text-danger"></span>
             <div>
                 <label for="EmailAddress" class="label-field">Email Address:</label>
             </div>
             <input type="email" asp-for="ViewUser!.EmailAddress" class="input-field" />
-
-
+            <span asp-validation-for="ViewUser!.EmailAddress" class="text-danger"></span>
             <div>
                 <label for="PhoneNumber" class="label-field">Phone Number:</label>
             </div>
             <input type="tel" asp-for="ViewUser!.PhoneNumber" class="input-field" />
-
+            <span asp-validation-for="ViewUser!.PhoneNumber" class="text-danger"></span>
 
             <input type="hidden" asp-for="ViewUser!.Id" />
             <input type="hidden" asp-for="ViewUser!.DateOfBirth" />
@@ -65,8 +67,10 @@
             else
             {
                 <button type="submit" class="input-field">Update User</button>
+                <button type="submit" class="input-field" asp-page-handler="DeleteUser" formnovalidate>Delete User</button>
             }
         </form>
+
     }
 </div>
 <a asp-page="Users">Back to Users</a>
@@ -81,5 +85,9 @@
     .input-field {
         width: 50%;
         margin: 5px;
+    }
+
+    .required {
+        color: red;
     }
 </style>

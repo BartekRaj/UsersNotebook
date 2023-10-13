@@ -5,11 +5,11 @@ namespace DataLogic.Models;
 public class User
 {
     public int Id { get; set; }
-    [RegularExpression(@"^[a-zA-Z]+$")]
+    [RegularExpression(@"^[a-zA-Z -]+$")]
     [MaxLength(50)]
     [Required]
     public string FirstName { get; set; } = null!;
-    [RegularExpression(@"^[a-zA-Z]+$")]
+    [RegularExpression(@"^[a-zA-Z -]+$")]
     [MaxLength(150)]
     [Required]
     public string LastName { get; set; } = null!;

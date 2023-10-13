@@ -30,18 +30,24 @@ public class UsersModel : PageModel
             }
         }
     }
-    public async Task<IActionResult> OnGetAsyncDownloadCsv()
+    public async Task<IActionResult> OnPostDownloadCsv()
     {
-        var httpClient = _httpClientFactory.CreateClient("UsersAPI"); // Ensure you configure the client name in your startup.cs.
+        var httpClient = _httpClientFactory.CreateClient("UsersAPI");
         var response = await httpClient.GetAsync("csv/download");
 
         if (response.IsSuccessStatusCode)
         {
-            var content = await response.Content.ReadAsStreamAsync();
-            var contentType = "text/csv";
-            var fileDownloadName = "UsersData.csv";
+            var responseData = await response.Content.ReadFromJsonAsync<DownloadResponseModel>(); // Deserialize the response into a custom class
 
-            return File(content, contentType, fileDownloadName);
+            // Decode the Base64 content
+            var base64Content = Convert.FromBase64String(responseData.FileContents);
+
+            // Set the content type and file name for the response
+            var contentType = responseData.ContentType;
+            var fileDownloadName = responseData.FileDownloadName;
+
+            // Return the file as a download
+            return File(base64Content, contentType, fileDownloadName);
         }
 
         return StatusCode(500, "Failed to download CSV data.");

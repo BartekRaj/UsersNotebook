@@ -63,7 +63,5 @@ public class UserRepository : IUserRepository
             _userContext.Users .Remove(currentUser);
             await _userContext.SaveChangesAsync();
         }
-    }
-
-    
+    }    
 }
