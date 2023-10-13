@@ -1,10 +1,10 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using System.Net.Http.Json;
 using UsersNotebook.UI.Models;
 
 namespace UsersNotebook.UI.Pages;
-
 public class EditUserModel : PageModel
 {
     [BindProperty]

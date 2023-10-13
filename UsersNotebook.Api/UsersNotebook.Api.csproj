@@ -20,4 +20,8 @@
     <ProjectReference Include="..\DataLogic\DataLogic.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Properties\PublishProfiles\" />
+  </ItemGroup>
+
 </Project>

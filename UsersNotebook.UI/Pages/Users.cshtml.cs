@@ -1,13 +1,15 @@
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using UsersNotebook.UI.Models;
 
 namespace UsersNotebook.UI.Pages;
-
 public class UsersModel : PageModel
 {
     private readonly IHttpClientFactory _httpClientFactory;
     public List<UserView> UsersList;
+    public bool HasApiAccessError = false;
 
     public UsersModel(IHttpClientFactory httpClientFactory, List<UserView> users)
     {
@@ -19,15 +21,28 @@ public class UsersModel : PageModel
     public async Task OnGetAsync()
     {
 
-        var httpClient = _httpClientFactory.CreateClient("UsersAPI");
-        var response = await httpClient.GetAsync("all");
-        if (response.IsSuccessStatusCode)
+        try
         {
-            var usersFromJson = await response.Content.ReadFromJsonAsync<List<UserView>>();
-            if (usersFromJson != null)
+            var httpClient = _httpClientFactory.CreateClient("UsersAPI");
+            var response = await httpClient.GetAsync("all");
+            if (response.IsSuccessStatusCode)
             {
-                UsersList = usersFromJson;
+                var usersFromJson = await response.Content.ReadFromJsonAsync<List<UserView>>();
+                if (usersFromJson != null)
+                {
+                    UsersList = usersFromJson;
+                    HasApiAccessError = false;
+                }
+                else
+                {
+                    HasApiAccessError = true;
+                }
             }
+        }
+        catch (Exception)
+        {
+
+            HasApiAccessError = true;
         }
     }
     public async Task<IActionResult> OnPostDownloadCsv()

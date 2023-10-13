@@ -1,6 +1,7 @@
 using DataLogic.Models;
 using DataLogic.Repository;
 using DataLogic.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace UsersNotebook.Api.Controllers;

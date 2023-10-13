@@ -1,20 +1,21 @@
 ﻿@page
 @model EditUserModel
-
-
 @if (Model.ViewUser?.Id == 0)
 {
     <h1>Add User</h1>
+    ViewData["Title"] = "Add User";
 }
 else
 {
     <h1>Edit User</h1>
+    ViewData["Title"] = "Edit User";
 }
 
 <div>
     @if (Model.ViewUser != null)
     {
         <form method="post">
+            @Html.AntiForgeryToken()
             <div>
                 <label for="FirstName" class="label-field">First Name:<span class="required">*</span></label>
             </div>

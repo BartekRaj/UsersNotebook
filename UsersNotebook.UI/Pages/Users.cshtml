@@ -4,40 +4,7 @@
 @{
     ViewData["Title"] = "All Users";
 }
-<style>
-    table {
-        border-collapse: collapse;
-        width: 100%;
-    }
 
-     td, th {
-        border: 1px solid #ddd;
-        padding: 8px;
-        text-align: left;
-        word-wrap: break-word;
-        max-width: 300px;
-    }
-
-
-    tr:nth-child(even) {
-        background-color: #f2f2f2;
-    }
-    tr{
-        height: auto;
-    }
-
-    td.FirstName a, td.LastName a {
-        text-decoration: none; 
-        color: inherit; 
-        cursor: default; 
-        transition: color 0.2s; 
-    }
-
-        td.FirstName a:hover, td.LastName a:hover {
-            color: blue; /* Change to the color you prefer on hover */
-        }
-
-</style>
 <table>
     <thead>
         <tr>
@@ -74,5 +41,56 @@
 <a asp-page="AddEditUser" asp-route-id=0>Add User</a>
 
 <form method="post">
+    @Html.AntiForgeryToken()
     <button type="submit" asp-page-handler="DownloadCsv">Download CSV</button>
+
 </form>
+
+@if (Model.HasApiAccessError)
+{
+    <div class="error-message">
+        <p>There is a problem communicating with the API. Please try again later.</p>
+    </div>
+}
+<style>
+    table {
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    td, th {
+        border: 1px solid #ddd;
+        padding: 8px;
+        text-align: left;
+        word-wrap: break-word;
+        max-width: 300px;
+    }
+
+
+    tr:nth-child(even) {
+        background-color: #f2f2f2;
+    }
+
+    tr {
+        height: auto;
+    }
+
+    td.FirstName a, td.LastName a {
+        text-decoration: none;
+        color: inherit;
+        cursor: default;
+        transition: color 0.2s;
+    }
+
+        td.FirstName a:hover, td.LastName a:hover {
+            color: blue; /* Change to the color you prefer on hover */
+        }
+
+    .error-message {
+        background-color: #ff0000; /* Red background */
+        color: #ffffff; /* White text */
+        padding: 10px; /* Padding around the message */
+        text-align: center; /* Center the text */
+        font-size: 18px; /* Adjust font size as needed */
+    }
+</style>
